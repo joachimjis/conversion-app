@@ -1,0 +1,7 @@
+{
+  "name": "conversion-app",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}
