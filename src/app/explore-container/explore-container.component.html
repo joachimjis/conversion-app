@@ -1,4 +1,36 @@
 <div id="container">
-  <strong>{{ name }}</strong>
-  <p>Explore <a target="_blank" rel="noopener noreferrer" href="https://ionicframework.com/docs/components">UI Components</a></p>
+  <ion-grid>
+    <ion-row>
+      <ion-col>
+        <ion-card (click)="openConversionPage(typeConversion.Temperature)">
+          <ion-icon name="thermometer-outline" size="large"></ion-icon>
+            <h1>Temperature</h1>
+        </ion-card>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col>
+        <ion-card (click)="openConversionPage(typeConversion.Volume)">
+         <ion-icon name="pint-outline" size="large"></ion-icon>
+          <h1>Volume</h1>
+        </ion-card>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col>
+        <ion-card (click)="openConversionPage(typeConversion.Distance)">
+          <ion-icon name="car-sport-outline" size="large"></ion-icon>
+          <h1>Distance</h1>
+        </ion-card>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col>
+        <ion-card (click)="openConversionPage(typeConversion.Speed)">
+          <ion-icon name="speedometer-outline" size="large"></ion-icon>
+          <h1>Speed</h1>
+        </ion-card>
+      </ion-col>
+    </ion-row>
+</ion-grid>
 </div>

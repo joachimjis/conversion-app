@@ -6,7 +6,5 @@ import { Component } from '@angular/core';
   styleUrls: ['tabConversion.page.scss']
 })
 export class TabConversionPage {
-
   constructor() {}
-
 }
