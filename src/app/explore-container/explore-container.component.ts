@@ -1,4 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
+import { ModalController, PopoverController } from '@ionic/angular';
+import { ConversionPage } from '../conversion/conversion.page';
 enum TypeConversionEnum {
   Temperature = 0,
   Volume,
@@ -18,15 +20,26 @@ export class ExploreContainerComponent implements OnInit {
   }
   public tap: number = 0;
   
-  constructor() { }
+  constructor(
+    private modalController:ModalController
+  ) { }
 
   ngOnInit() {}
 
   openConversionPage(typeConversion: TypeConversionEnum) {
     console.log(typeConversion);
+
+    this.presentModal(typeConversion);
   }
 
-  tapEvent(e) {
-    this.tap++;
+  async presentModal(typeConversion: TypeConversionEnum) {
+    const modal = await this.modalController.create({
+      component: ConversionPage,
+      cssClass: 'my-custom-class',
+      componentProps: {
+        'typeConversion': typeConversion,
+      }
+    });
+    return await modal.present();
   }
 }

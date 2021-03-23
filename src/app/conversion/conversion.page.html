@@ -1,0 +1,28 @@
+<ion-header>  
+   <ion-toolbar color="primary">  
+     <ion-title>Conversion : {{selectedConversion?.title}}</ion-title>  
+   </ion-toolbar>  
+ </ion-header>  
+ <ion-content class="padding" color="light">  
+   <ion-item>
+    <ion-label position="floating">{{selectedConversion?.header1}}</ion-label>
+    <ion-input 
+      [(ngModel)]="header1" 
+      (ionChange)='inputHeader1OnChange($event.target.value)'
+      type="number"
+      ></ion-input>
+  </ion-item>
+
+  <ion-icon name="repeat-outline" size="large"></ion-icon>
+
+  <ion-item>
+    <ion-label position="floating">{{selectedConversion?.header2}}</ion-label>
+    <ion-input 
+      [(ngModel)]="header2" 
+      (ionChange)='inputHeader2OnChange($event.target.value)'
+      type="number"
+      ></ion-input>
+  </ion-item>
+
+   <ion-button color="danger" (click)="dismiss()">Close</ion-button>
+ </ion-content>
