@@ -52,12 +52,6 @@ export class ConversionPage implements OnInit {
   ) { }
 
   ngOnInit() {
-   this.loadDefaultValues();
-  }
-
-  private loadDefaultValues() {
-    this.inputHeader1 = 0;
-    this.takeInputHeader1AndConvertToHeader2(this.inputHeader1);
   }
 
   private initConversionTypes() {
@@ -78,16 +72,16 @@ export class ConversionPage implements OnInit {
 
     this.conversions.push({
       title: 'Volume',
-      header1: '',
-      header2: '',
+      header1: 'Liter',
+      header2: 'US fluid ounce',
       type: TypeConversionEnum.Volume,
 
       calculateForHeader1: function(value: number) {
-        return 0;
+        return value / 33.814;
       },
 
       calculateForHeader2: function(value: number) {
-        return 0;
+        return value * 33.814;
       }
     });
 
