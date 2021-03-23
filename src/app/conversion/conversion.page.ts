@@ -5,7 +5,7 @@ enum TypeConversionEnum {
   Temperature = 0,
   Volume,
   Distance,
-  Speed
+  Size
 }
 
 export interface Conversion {
@@ -89,7 +89,7 @@ export class ConversionPage implements OnInit {
       title: 'Speed',
       header1: 'Kilometre',
       header2: 'Mile',
-      type: TypeConversionEnum.Speed,
+      type: TypeConversionEnum.Size,
 
       calculateForHeader1: function(value: number) {
         return value * 1.609344;
@@ -101,17 +101,17 @@ export class ConversionPage implements OnInit {
     });
 
     this.conversions.push({
-      title: 'Distance',
-      header1: '',
-      header2: '',
+      title: 'Size (Apartment)',
+      header1: 'Square foot',
+      header2: 'Square meter',
       type: TypeConversionEnum.Distance,
 
       calculateForHeader1: function(value: number) {
-        return 0;
+        return value * 10.764;
       },
 
       calculateForHeader2: function(value: number) {
-        return 0;
+        return value / 10.764;
       }
     });
 
