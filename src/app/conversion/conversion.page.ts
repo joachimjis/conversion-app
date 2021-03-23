@@ -8,11 +8,14 @@ enum TypeConversionEnum {
   Speed
 }
 
-export class Conversion {
+export interface Conversion {
   title: string;
   header1:string;
   header2: string;
-  type: TypeConversionEnum
+  type: TypeConversionEnum;
+
+  calculateForHeader1?:(value: number) => number;
+  calculateForHeader2?:(value: number) => number;
 }
 
 @Component({
@@ -24,12 +27,12 @@ export class ConversionPage implements OnInit {
 
   _typeConversion: TypeConversionEnum;
 
-  header1: number;
-  header2: number;
+  inputHeader1: number;
+  inputHeader2: number;
 
   @Input() set typeConversion(typeConversion: TypeConversionEnum) {
     this._typeConversion = typeConversion;
-    this.assignValuesBasedOnType();
+    this.initConversionTypes();
   }
 
   get typeConversion() {
@@ -49,7 +52,12 @@ export class ConversionPage implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.initConversionTypes();
+   this.loadDefaultValues();
+  }
+
+  private loadDefaultValues() {
+    this.inputHeader1 = 0;
+    this.takeInputHeader1AndConvertToHeader2(this.inputHeader1);
   }
 
   private initConversionTypes() {
@@ -57,115 +65,82 @@ export class ConversionPage implements OnInit {
       title: 'Temperature',
       header1: 'Celcius',
       header2: 'Farenheit',
-      type: TypeConversionEnum.Temperature
+      type: TypeConversionEnum.Temperature,
+
+      calculateForHeader1: function(value: number) {
+        return (value - 32) * 5 / 9;
+      },
+
+      calculateForHeader2: function(value: number) {
+        return (value * 9 / 5) + 32;
+      }
     });
 
     this.conversions.push({
       title: 'Volume',
       header1: '',
       header2: '',
-      type: TypeConversionEnum.Volume
+      type: TypeConversionEnum.Volume,
+
+      calculateForHeader1: function(value: number) {
+        return 0;
+      },
+
+      calculateForHeader2: function(value: number) {
+        return 0;
+      }
     });
 
     this.conversions.push({
       title: 'Speed',
       header1: '',
       header2: '',
-      type: TypeConversionEnum.Speed
+      type: TypeConversionEnum.Speed,
+
+      calculateForHeader1: function(value: number) {
+        return 0;
+      },
+
+      calculateForHeader2: function(value: number) {
+        return 0;
+      }
     });
 
     this.conversions.push({
       title: 'Distance',
       header1: '',
       header2: '',
-      type: TypeConversionEnum.Distance
+      type: TypeConversionEnum.Distance,
+
+      calculateForHeader1: function(value: number) {
+        return 0;
+      },
+
+      calculateForHeader2: function(value: number) {
+        return 0;
+      }
     });
+
+    this.assignValuesBasedOnType();
   }
 
   assignValuesBasedOnType() {
-    switch(this.typeConversion) {
-      case this.typeConversionEnum.Temperature:
-        this.selectedConversion = {
-          title: 'Temperature',
-          header1:'Celcius',
-          header2:'Farenheit',
-          type: this.typeConversionEnum.Temperature
-        };
-        break;
-      case this.typeConversionEnum.Volume:
-        this.selectedConversion = {
-          title: 'Volume',
-          header1:'',
-          header2:'',
-          type: this.typeConversionEnum.Volume
-        };
-        break;
-      case this.typeConversionEnum.Speed:
-        this.selectedConversion = {
-          title: 'Speed',
-          header1:'',
-          header2:'',
-          type: this.typeConversionEnum.Speed
-        };
-        break;
-      case this.typeConversionEnum.Distance:
-        this.selectedConversion = {
-          title: 'Distance',
-          header1:'',
-          header2:'',
-          type: this.typeConversionEnum.Distance
-        };
-        break;
-      default:
-        break;
-    }
+    const conversion = this.conversions[this.typeConversion];
+    
+    this.selectedConversion = {
+      title: conversion.title,
+      header1: conversion.header1,
+      header2: conversion.header2,
+      type: conversion.type
+    };
   }
 
-  getConversionTitle() {
-    switch(this.typeConversion){
-      case this.typeConversionEnum.Temperature:
-        return 'Temperature';
-      case this.typeConversionEnum.Volume:
-        return 'Volume';
-      case this.typeConversionEnum.Speed:
-        return 'Speed';
-      case this.typeConversionEnum.Distance:
-        return 'Distance';
-      default:
-        return '';
-    }
+  takeInputHeader1AndConvertToHeader2(value: number) {
+    this.inputHeader2 = this.conversions[this.typeConversion].calculateForHeader2(value);
   }
 
-  inputHeader1OnChange(value: number) {
-    switch(this.typeConversion) {
-      case this.typeConversionEnum.Temperature:
-        this.header2 = (value * 9 / 5) + 32;
-        break;
-      case this.typeConversionEnum.Volume:
-        break;
-      case this.typeConversionEnum.Speed:
-        break;
-      case this.typeConversionEnum.Distance:
-        break;
-      default:
-        break;
-    }
-  }
-
-  inputHeader2OnChange(value) {
-    switch(this.typeConversion) {
-      case this.typeConversionEnum.Temperature:
-        this.header1 = (value - 32) * 5 / 9;
-        break;
-      case this.typeConversionEnum.Volume:
-        break;
-      case this.typeConversionEnum.Speed:
-        break;
-      case this.typeConversionEnum.Distance:
-        break;
-      default:
-        break;
-    }
+  takeInputHeader2AndConvertToHeader1(value) {
+    this.inputHeader1 = this.conversions[this.typeConversion].calculateForHeader1(value);
   }
 
    dismiss() {

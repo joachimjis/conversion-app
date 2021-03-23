@@ -7,8 +7,8 @@
    <ion-item>
     <ion-label position="floating">{{selectedConversion?.header1}}</ion-label>
     <ion-input 
-      [(ngModel)]="header1" 
-      (ionChange)='inputHeader1OnChange($event.target.value)'
+      [(ngModel)]="inputHeader1" 
+      (ionChange)='takeInputHeader1AndConvertToHeader2($event.target.value)'
       type="number"
       ></ion-input>
   </ion-item>
@@ -18,8 +18,8 @@
   <ion-item>
     <ion-label position="floating">{{selectedConversion?.header2}}</ion-label>
     <ion-input 
-      [(ngModel)]="header2" 
-      (ionChange)='inputHeader2OnChange($event.target.value)'
+      [(ngModel)]="inputHeader2" 
+      (ionChange)='takeInputHeader2AndConvertToHeader1($event.target.value)'
       type="number"
       ></ion-input>
   </ion-item>
