@@ -93,16 +93,16 @@ export class ConversionPage implements OnInit {
 
     this.conversions.push({
       title: 'Speed',
-      header1: '',
-      header2: '',
+      header1: 'Kilometre',
+      header2: 'Mile',
       type: TypeConversionEnum.Speed,
 
       calculateForHeader1: function(value: number) {
-        return 0;
+        return value * 1.609344;
       },
 
       calculateForHeader2: function(value: number) {
-        return 0;
+        return value / 1.609344;
       }
     });
 
